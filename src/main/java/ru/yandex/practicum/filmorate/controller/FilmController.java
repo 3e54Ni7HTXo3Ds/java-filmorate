@@ -18,7 +18,6 @@ public class FilmController {
     private long filmId;
     private final List<Film> films = new ArrayList<>();
 
-
     private long getNextFilmId() {
         filmId++;
         return filmId;
