@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -18,9 +16,8 @@ import static ru.yandex.practicum.filmorate.model.Film.validateFilm;
 public class FilmController {
 
     private long filmId;
-
-
     private final List<Film> films = new ArrayList<>();
+
 
     private long getNextFilmId() {
         filmId++;
@@ -33,10 +30,8 @@ public class FilmController {
         return films;
     }
 
-    @PostMapping(value = "/films"
-            //, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE
-            )
-    public Film createFilm(@RequestBody Film film ) throws ValidationException {
+    @PostMapping(value = "/films")
+    public Film createFilm(@RequestBody Film film) throws ValidationException {
         validateFilm(film);
         filmId = getNextFilmId();
         film.setId(filmId);

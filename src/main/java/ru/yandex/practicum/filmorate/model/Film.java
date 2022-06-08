@@ -6,14 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Slf4j
 @Data
 public class Film {
-
-
-
     private long id;
     private String name;
     private String description;
@@ -36,22 +32,21 @@ public class Film {
             log.error(message);
             throw new ValidationException(message);
         } else if (film.getDescription().length() >= 200) {
-            message ="максимальная длина описания — 200 символов";
-                    log.error(message);
+            message = "максимальная длина описания — 200 символов";
+            log.error(message);
             throw new ValidationException(message);
         } else if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            message ="дата релиза — не раньше 28 декабря 1895 года";
-                    log.error(message);
+            message = "дата релиза — не раньше 28 декабря 1895 года";
+            log.error(message);
             throw new ValidationException(message);
         } else if (film.getDuration() < 0) {
-            message ="продолжительность фильма должна быть положительной";
-                    log.error(message);
+            message = "продолжительность фильма должна быть положительной";
+            log.error(message);
             throw new ValidationException(message);
-        }else if (film.getId() < 0) {
-            message ="некорректный Id";
-                    log.error(message);
+        } else if (film.getId() < 0) {
+            message = "некорректный Id";
+            log.error(message);
             throw new ValidationException(message);
         }
-
     }
 }

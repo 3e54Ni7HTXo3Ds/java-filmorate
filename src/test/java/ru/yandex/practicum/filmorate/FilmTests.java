@@ -1,12 +1,8 @@
 package ru.yandex.practicum.filmorate;
 
-import ch.qos.logback.core.net.server.Client;
 import com.google.gson.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.model.Film;
-
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -14,9 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.text.DateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -141,6 +135,4 @@ public class FilmTests {
         assertEquals(500, response.statusCode());
 
     }
-
-
 }
