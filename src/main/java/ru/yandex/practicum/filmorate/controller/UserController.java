@@ -7,7 +7,7 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 
 import static ru.yandex.practicum.filmorate.model.User.validateUser;
@@ -17,7 +17,7 @@ import static ru.yandex.practicum.filmorate.model.User.validateUser;
 @RestController
 public class UserController {
     private long userId;
-    private final List<User> users = new ArrayList<>();
+    private final HashMap<Long, User> users = new HashMap<>();
 
     private long getNextUserId() {
         userId++;
@@ -27,7 +27,7 @@ public class UserController {
     @GetMapping("/users")
     public List<User> findAllUsers() {
         log.info("Текущее количество пользователей: {} ", users.size());
-        return users;
+        return new ArrayList<>(users.values());
     }
 
     @PostMapping(value = "/users")
@@ -35,7 +35,7 @@ public class UserController {
         validateUser(user);
         userId = getNextUserId();
         user.setId(userId);
-        users.add(user);
+        users.put(userId, user);
         log.info("Добавлен новый пользователь: {} ", user);
         return user;
     }
@@ -44,23 +44,15 @@ public class UserController {
     public User updateUser(@Valid @RequestBody User user) throws ValidationException {
         validateUser(user);
         long updateId = user.getId();
-        User oldUser = null;
-        boolean isPresent = false;
-        for (User item : users)
-            if (item.getId() == updateId) {
-                isPresent = true;
-                oldUser = item;
-                break;
-            }
-        if (isPresent) {
-            users.remove(oldUser);
-            users.add(user);
+        if (users.containsKey(updateId)) {
+            users.remove(updateId);
+            users.put(updateId, user);
             log.info("Обновлен пользователь: {} ", user);
             return user;
         } else {
             userId = getNextUserId();
             user.setId(userId);
-            users.add(user);
+            users.put(userId, user);
             log.info("Ранее такого пользователя не было. Добавлен новый пользователь: {} ", user);
         }
         log.error("Ошибка обновления пользователя: {} ", user);
