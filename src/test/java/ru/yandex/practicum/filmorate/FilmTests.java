@@ -43,7 +43,7 @@ public class FilmTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(200, response.statusCode());
         assertEquals("{\"id\":1,\"name\":\"1\",\"description\":\"Film\",\"releaseDate\":\"2022-05-03\"," +
                         "\"duration\":60}",
@@ -61,7 +61,7 @@ public class FilmTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -69,10 +69,10 @@ public class FilmTests {
     @Test
     void validateFilmDescription() throws IOException, InterruptedException {
         LocalDate Date1 = LocalDate.of(2022, 6, 3);
-        String desc = "Любовь? Что такое любовь? Любовь мешает смерти. Любовь есть жизнь. Все, все что я понимаю," +
-                " я понимаю только потому, что люблю. Все есть, все существует только потому, что я люблю." +
-                " Все связано одною ею. Любовь есть Бог, и умереть — значит мне, частице любви, вернуться к общему" +
-                " и вечному источнику.";
+        String desc = "Р›СЋР±РѕРІСЊ? Р§С‚Рѕ С‚Р°РєРѕРµ Р»СЋР±РѕРІСЊ? Р›СЋР±РѕРІСЊ РјРµС€Р°РµС‚ СЃРјРµСЂС‚Рё. Р›СЋР±РѕРІСЊ РµСЃС‚СЊ Р¶РёР·РЅСЊ. Р’СЃРµ, РІСЃРµ С‡С‚Рѕ СЏ РїРѕРЅРёРјР°СЋ," +
+                " СЏ РїРѕРЅРёРјР°СЋ С‚РѕР»СЊРєРѕ РїРѕС‚РѕРјСѓ, С‡С‚Рѕ Р»СЋР±Р»СЋ. Р’СЃРµ РµСЃС‚СЊ, РІСЃРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ С‚РѕР»СЊРєРѕ РїРѕС‚РѕРјСѓ, С‡С‚Рѕ СЏ Р»СЋР±Р»СЋ." +
+                " Р’СЃРµ СЃРІСЏР·Р°РЅРѕ РѕРґРЅРѕСЋ РµСЋ. Р›СЋР±РѕРІСЊ РµСЃС‚СЊ Р‘РѕРі, Рё СѓРјРµСЂРµС‚СЊ вЂ” Р·РЅР°С‡РёС‚ РјРЅРµ, С‡Р°СЃС‚РёС†Рµ Р»СЋР±РІРё, РІРµСЂРЅСѓС‚СЊСЃСЏ Рє РѕР±С‰РµРјСѓ" +
+                " Рё РІРµС‡РЅРѕРјСѓ РёСЃС‚РѕС‡РЅРёРєСѓ.";
         Film newFilm1 = new Film(1, "1", desc, Date1, 60);
         URI url1 = URI.create("http://localhost:8080/films/");
         String json1 = gson.toJson(newFilm1);
@@ -81,7 +81,7 @@ public class FilmTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -97,7 +97,7 @@ public class FilmTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -114,7 +114,7 @@ public class FilmTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -131,7 +131,7 @@ public class FilmTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }

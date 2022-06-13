@@ -41,7 +41,7 @@ public class UserTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(200, response.statusCode());
         assertEquals("{\"id\":1,\"email\":\"1@1.com\",\"login\":\"user\",\"name\":\"Pasha\",\"birthday\":" +
                         "\"2022-05-03\"}",
@@ -59,7 +59,7 @@ public class UserTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -75,7 +75,7 @@ public class UserTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -91,7 +91,7 @@ public class UserTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -107,7 +107,7 @@ public class UserTests {
         HttpRequest request1 = HttpRequest.newBuilder().uri(url1).header("Content-Type", "application/json")
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
-        assertNotNull(response, "Нет ответа");
+        assertNotNull(response, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response.statusCode());
 
     }
@@ -128,9 +128,9 @@ public class UserTests {
                 .POST(body2).build();
         HttpResponse<String> response2 = client.send(request2, HttpResponse.BodyHandlers.ofString());
 
-        assertNotNull(response1, "Нет ответа");
+        assertNotNull(response1, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(400, response1.statusCode());
-        assertNotNull(response2, "Нет ответа");
+        assertNotNull(response2, "РќРµС‚ РѕС‚РІРµС‚Р°");
         assertEquals(500, response2.statusCode());
 
     }

@@ -17,7 +17,7 @@ import static ru.yandex.practicum.filmorate.model.Film.validateFilm;
 public class FilmController {
 
     private long filmId;
-    private final HashMap <Long,Film> films = new HashMap<>();
+    private final HashMap<Long, Film> films = new HashMap<>();
 
     private long getNextFilmId() {
         filmId++;
@@ -35,7 +35,7 @@ public class FilmController {
         validateFilm(film);
         filmId = getNextFilmId();
         film.setId(filmId);
-        films.put(filmId,film);
+        films.put(filmId, film);
         log.info("Добавлен новый фильм: {} ", film);
         return film;
     }
@@ -46,14 +46,13 @@ public class FilmController {
         long updateId = film.getId();
 
         if (films.containsKey(updateId)) {
-            films.remove(updateId);
-            films.put(updateId,film);
+            films.put(updateId, film);
             log.info("Обновлен фильм: {} ", film);
             return film;
         } else {
             filmId = getNextFilmId();
             film.setId(filmId);
-            films.put(filmId,film);
+            films.put(filmId, film);
             log.info("Ранее такого фильма не было. Добавлен новый фильм: {} ", film);
         }
 

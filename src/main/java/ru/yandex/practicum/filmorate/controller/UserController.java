@@ -45,7 +45,6 @@ public class UserController {
         validateUser(user);
         long updateId = user.getId();
         if (users.containsKey(updateId)) {
-            users.remove(updateId);
             users.put(updateId, user);
             log.info("Обновлен пользователь: {} ", user);
             return user;
