@@ -1,19 +1,22 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.FilmService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Component
+@Data
 public class InMemoryFilmStorage implements FilmStorage {
 
     private long filmId;
     private final HashMap<Long, Film> films = new HashMap<>();
+
 
     private long getNextFilmId() {
         filmId++;
@@ -61,10 +64,18 @@ public class InMemoryFilmStorage implements FilmStorage {
             log.info("Удален пользователь: {} ", film);
         }
     }
+
     @Override
 
     public List<Film> findAllFilms() {
         log.info("Текущее количество фильмов: {} ", films.size());
         return new ArrayList<>(films.values());
     }
+
+    @Override
+    public Film findFilmById(Long id) {
+        return films.get(id);
+    }
+
+
 }
