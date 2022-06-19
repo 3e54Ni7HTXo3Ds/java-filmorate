@@ -44,7 +44,7 @@ public class UserTests {
         assertNotNull(response, "Нет ответа");
         assertEquals(200, response.statusCode());
         assertEquals("{\"id\":1,\"email\":\"1@1.com\",\"login\":\"user\",\"name\":\"Pasha\",\"birthday\":" +
-                        "\"2022-05-03\"}",
+                        "\"2022-05-03\",\"friends\":null}",
                 response.body());
     }
 

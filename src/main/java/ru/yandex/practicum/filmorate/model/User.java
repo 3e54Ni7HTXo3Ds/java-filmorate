@@ -6,11 +6,18 @@ import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Slf4j
 @Data
 public class User {
-
+    private long id;
+    @Email
+    private String email;
+    private String login;
+    private String name;
+    private LocalDate birthday;
+    private Set<Long> friends;
 
     public User(long id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
@@ -19,14 +26,6 @@ public class User {
         this.name = name;
         this.birthday = birthday;
     }
-
-    private long id;
-    @Email
-    private String email;
-    private String login;
-    private String name;
-    private LocalDate birthday;
-
 
     public static void validateUser(User user) throws ValidationException {
         String message = null;
