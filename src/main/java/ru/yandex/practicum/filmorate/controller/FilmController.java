@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 
@@ -31,6 +32,11 @@ public class FilmController {
     @GetMapping("/films")
     public List<Film> findAllFilms() {
        return filmStorage.findAllFilms();
+    }
+
+    @GetMapping("/films/{id}")
+    public Film findFilmById(@PathVariable Long id) {
+        return filmStorage.findFilmById(id);
     }
 
     @PostMapping(value = "/films")
