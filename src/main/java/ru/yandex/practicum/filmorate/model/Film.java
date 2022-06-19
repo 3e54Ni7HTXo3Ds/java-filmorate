@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Slf4j
 @Data
@@ -15,6 +16,7 @@ public class Film {
     private String description;
     private LocalDate releaseDate;
     private int duration;
+    private Set<Long> likes;
 
     public Film(long id, String name, String description, LocalDate releaseDate, int duration) {
         this.id = id;

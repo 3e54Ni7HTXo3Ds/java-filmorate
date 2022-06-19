@@ -27,7 +27,7 @@ public class UserService {
         log.info("Пользователь добавлен в друзья: {} ", userStorage.findUserById(friendId));
     }
 
-    void delFriend(Long userId, Long friendId) {
+    void deleteFriend(Long userId, Long friendId) {
         userStorage.findUserById(userId).getFriends().remove(friendId);
         userStorage.findUserById(friendId).getFriends().remove(userId);
         log.info("Пользователь удален из друзей: {} ", userStorage.findUserById(friendId));

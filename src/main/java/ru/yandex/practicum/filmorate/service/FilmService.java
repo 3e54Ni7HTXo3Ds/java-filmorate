@@ -4,25 +4,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 
+import java.util.TreeSet;
+
 @Service
 public class FilmService {
 
     private final FilmStorage filmStorage;
+    private TreeSet
 
     @Autowired
     public FilmService(FilmStorage filmStorage) {
         this.filmStorage = filmStorage;
     }
-//    addLike() {
-//
-//    }
-//
-//    delLike() {
-//
-//    }
-//
-//    findPopular() {
-//
-//    }
+
+
+   void addLike(Long id, Long userId) {
+
+    }
+
+    void delLike(Long id, Long userId) {
+
+    }
+
+    void findPopular() {
+
+    }
 
 }
