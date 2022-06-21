@@ -2,10 +2,12 @@ package ru.yandex.practicum.filmorate.model;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import ru.yandex.practicum.filmorate.exceptions.NotFoundDataException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
@@ -25,9 +27,10 @@ public class User {
         this.login = login;
         this.name = name;
         this.birthday = birthday;
+        this.friends = new HashSet<>();
     }
 
-    public static void validateUser(User user) throws ValidationException {
+    public static void validateUser(User user) throws ValidationException, NotFoundDataException {
         String message = null;
         if (user.getEmail().isBlank() || !user.getEmail().contains("@") || user.getEmail() == null) {
             message = "электронная почта не может быть пустой и должна содержать символ @";
@@ -44,7 +47,7 @@ public class User {
         } else if (user.getId() < 0) {
             message = "некорректный Id";
             log.error(message);
-            throw new ValidationException(message);
+            throw new NotFoundDataException(message);
         } else if (user.getName().isBlank()) {
             message = "имя для отображения может быть пустым — в таком случае будет использован логин";
             log.info(message);

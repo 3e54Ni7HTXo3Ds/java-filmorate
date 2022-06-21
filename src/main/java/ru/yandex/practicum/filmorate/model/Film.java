@@ -3,9 +3,11 @@ package ru.yandex.practicum.filmorate.model;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import ru.yandex.practicum.filmorate.exceptions.NotFoundDataException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
@@ -24,10 +26,11 @@ public class Film {
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
+        this.likes = new HashSet<>();
     }
 
 
-    public static void validateFilm(Film film) throws ValidationException {
+    public static void validateFilm(Film film) throws ValidationException, NotFoundDataException {
         String message = null;
         if (film.getName().isBlank()) {
             message = "название не может быть пустым";
@@ -48,7 +51,7 @@ public class Film {
         } else if (film.getId() < 0) {
             message = "некорректный Id";
             log.error(message);
-            throw new ValidationException(message);
+            throw new NotFoundDataException(message);
         }
     }
 }
