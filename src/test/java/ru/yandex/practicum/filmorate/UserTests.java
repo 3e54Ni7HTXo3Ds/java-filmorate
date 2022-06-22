@@ -44,7 +44,7 @@ public class UserTests {
         assertNotNull(response, "Нет ответа");
         assertEquals(200, response.statusCode());
         assertEquals("{\"id\":1,\"email\":\"1@1.com\",\"login\":\"user\",\"name\":\"Pasha\",\"birthday\":" +
-                        "\"2022-05-03\",\"friends\":null}",
+                        "\"2022-05-03\",\"friends\":[]}",
                 response.body());
     }
 
@@ -60,7 +60,7 @@ public class UserTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(400, response.statusCode());
 
     }
 
@@ -76,7 +76,7 @@ public class UserTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(400, response.statusCode());
 
     }
 
@@ -92,7 +92,7 @@ public class UserTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(400, response.statusCode());
 
     }
 
@@ -108,7 +108,7 @@ public class UserTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(404, response.statusCode());
 
     }
 

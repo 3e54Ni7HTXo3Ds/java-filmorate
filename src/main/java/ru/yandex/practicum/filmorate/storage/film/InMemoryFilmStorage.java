@@ -29,9 +29,9 @@ public class InMemoryFilmStorage implements FilmStorage {
         public int compare(Film o1, Film o2) {
             // сравниваем лайки фильмов — больше лайков в начало списка
             if (o1.getLikes().size()>o2.getLikes().size()) {
-                return 1;
-            } else if (o1.getLikes().size()<o2.getLikes().size()) {
                 return -1;
+            } else if (o1.getLikes().size()<o2.getLikes().size()) {
+                return 1;
             } else if (o1.getLikes().size()==o2.getLikes().size() && !o1.equals(o2)){
                 return 1;
             } else return 0;
