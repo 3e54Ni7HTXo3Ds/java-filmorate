@@ -5,6 +5,7 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public interface FilmStorage {
 
@@ -18,6 +19,5 @@ public interface FilmStorage {
 
     Film findFilmById(Long id);
 
-
-
+    TreeSet<Film> getSortedFilms();
 }

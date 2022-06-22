@@ -29,7 +29,6 @@ public class Film {
         this.likes = new HashSet<>();
     }
 
-
     public static void validateFilm(Film film) throws ValidationException, NotFoundDataException {
         String message = null;
         if (film.getName().isBlank()) {

@@ -17,11 +17,26 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     private long filmId;
     private final HashMap<Long, Film> films = new HashMap<>();
-    private FilmService filmService;
 
-    @Autowired
-    public InMemoryFilmStorage(FilmService filmService) {
-        this.filmService = filmService;
+    public TreeSet<Film> getSortedFilms() {
+        return sortedFilms;
+    }
+
+    private final TreeSet<Film> sortedFilms = new TreeSet<>(new LikesComparator());
+
+    protected static class LikesComparator implements Comparator<Film> {
+        @Override
+        public int compare(Film o1, Film o2) {
+            // сравниваем лайки фильмов — больше лайков в начало списка
+            if (o1.getLikes().size()>o2.getLikes().size()) {
+                return 1;
+            } else if (o1.getLikes().size()<o2.getLikes().size()) {
+                return -1;
+            } else if (o1.getLikes().size()==o2.getLikes().size() && !o1.equals(o2)){
+                return 1;
+            } else return 0;
+
+        }
     }
 
     private long getNextFilmId() {
@@ -35,7 +50,7 @@ public class InMemoryFilmStorage implements FilmStorage {
             filmId = getNextFilmId();
             film.setId(filmId);
             films.put(filmId, film);
-            filmService.getSortedFilms().add(film);
+            sortedFilms.add(film);
             log.info("Добавлен новый фильм: {} ", film);
             return film;
         } else {
@@ -49,9 +64,9 @@ public class InMemoryFilmStorage implements FilmStorage {
         if (film != null) {
             long updateId = film.getId();
             if (films.containsKey(updateId)) {
-                filmService.getSortedFilms().remove(findFilmById(film.getId()));
+                sortedFilms.remove(findFilmById(film.getId()));
                 films.put(updateId, film);
-                filmService.getSortedFilms().add(film);
+                sortedFilms.add(film);
 
                 log.info("Обновлен фильм: {} ", film);
                 return film;
@@ -59,7 +74,7 @@ public class InMemoryFilmStorage implements FilmStorage {
                 filmId = getNextFilmId();
                 film.setId(filmId);
                 films.put(filmId, film);
-                filmService.getSortedFilms().add(film);
+                sortedFilms.add(film);
                 log.info("Ранее такого фильма не было. Добавлен новый фильм: {} ", film);
             }
         } else
@@ -71,14 +86,13 @@ public class InMemoryFilmStorage implements FilmStorage {
     @Override
     public void deleteFilm(Film film) {
         if (film != null) {
-            filmService.getSortedFilms().remove(film);
+            sortedFilms.remove(film);
             films.remove(film.getId());
             log.info("Удален фильм: {} ", film);
         }
     }
 
     @Override
-
     public List<Film> findAllFilms() {
         log.info("Текущее количество фильмов: {} ", films.size());
         return new ArrayList<>(films.values());

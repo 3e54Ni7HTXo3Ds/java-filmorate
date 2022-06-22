@@ -54,6 +54,4 @@ public class User {
             user.setName(user.getLogin());
         }
     }
-
-
 }

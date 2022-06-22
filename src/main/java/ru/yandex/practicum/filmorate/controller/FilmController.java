@@ -18,7 +18,6 @@ import static ru.yandex.practicum.filmorate.model.Film.validateFilm;
 @RestController
 public class FilmController {
 
-
     private final FilmStorage filmStorage;
     private final FilmService filmService;
 
@@ -76,6 +75,4 @@ public class FilmController {
             filmService.deleteLike(id, userId);
         }
     }
-
-
 }
