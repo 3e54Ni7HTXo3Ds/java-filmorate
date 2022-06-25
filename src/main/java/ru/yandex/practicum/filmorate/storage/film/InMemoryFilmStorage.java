@@ -67,7 +67,6 @@ public class InMemoryFilmStorage implements FilmStorage {
                 sortedFilms.remove(findFilmById(film.getId()));
                 films.put(updateId, film);
                 sortedFilms.add(film);
-
                 log.info("Обновлен фильм: {} ", film);
                 return film;
             } else {

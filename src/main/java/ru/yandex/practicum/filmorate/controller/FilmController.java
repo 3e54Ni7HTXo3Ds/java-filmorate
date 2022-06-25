@@ -18,18 +18,16 @@ import static ru.yandex.practicum.filmorate.model.Film.validateFilm;
 @RestController
 public class FilmController {
 
-    private final FilmStorage filmStorage;
     private final FilmService filmService;
 
     @Autowired
-    public FilmController(FilmStorage filmStorage, FilmService filmService) {
-        this.filmStorage = filmStorage;
+    public FilmController(FilmService filmService) {
         this.filmService = filmService;
     }
 
     @GetMapping("/films")
     public List<Film> findAllFilms() {
-        return filmStorage.findAllFilms();
+        return filmService.findAllFilms();
     }
 
     @GetMapping("/films/{id}")
@@ -37,25 +35,26 @@ public class FilmController {
         if (id < 0) {
             throw new NotFoundDataException();
         } else
-            return filmStorage.findFilmById(id);
+            return filmService.findFilmById(id);
     }
 
     @GetMapping("/films/popular")
-    public List<Film> findPopular(@RequestParam(defaultValue = "10") Integer count) throws NotFoundDataException {
-        return filmService.findPopular(count);
+    public List<Film> findPopular(@RequestParam(defaultValue = "10") Integer count) throws NotFoundDataException, ValidationException {
+        if (count > 0) {
+            return filmService.findPopular(count);
+        } else throw new ValidationException("Значение count должно быть положительным");
     }
-
 
     @PostMapping(value = "/films")
     public Film createFilm(@RequestBody Film film) throws ValidationException, NotFoundDataException {
         validateFilm(film);
-        return filmStorage.createFilm(film);
+        return filmService.createFilm(film);
     }
 
     @PutMapping(value = "/films")
     public Film updateFilm(@RequestBody Film film) throws ValidationException, NotFoundDataException {
         validateFilm(film);
-        return filmStorage.updateFilm(film);
+        return filmService.updateFilm(film);
     }
 
     @PutMapping(value = "/films/{id}/like/{userId}")

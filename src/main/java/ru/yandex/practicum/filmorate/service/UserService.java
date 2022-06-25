@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
+import javax.validation.ValidationException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,15 +24,29 @@ public class UserService {
     }
 
     public void addFriend(Long userId, Long friendId) {
-        userStorage.findUserById(userId).getFriends().add(friendId);
-        userStorage.findUserById(friendId).getFriends().add(userId);
-        log.info("Пользователь добавлен в друзья: {} ", userStorage.findUserById(friendId));
+        User user = userStorage.findUserById(userId);
+        User friend = userStorage.findUserById(friendId);
+        if (userId > 0 && friendId > 0 && user != null && friend != null) {
+            user.getFriends().add(friendId);
+            friend.getFriends().add(userId);
+            log.info("Пользователь добавлен в друзья: {} ", userStorage.findUserById(friendId));
+        } else {
+            log.info("Сработала валидация по ID");
+            throw new ValidationException("Сработала валидация по ID");
+        }
     }
 
     public void deleteFriend(Long userId, Long friendId) {
-        userStorage.findUserById(userId).getFriends().remove(friendId);
-        userStorage.findUserById(friendId).getFriends().remove(userId);
-        log.info("Пользователь удален из друзей: {} ", userStorage.findUserById(friendId));
+        User user = userStorage.findUserById(userId);
+        User friend = userStorage.findUserById(friendId);
+        if (userId > 0 && friendId > 0 && user != null && friend != null) {
+            user.getFriends().remove(friendId);
+            friend.getFriends().remove(userId);
+            log.info("Пользователь удален из друзей: {} ", userStorage.findUserById(friendId));
+        } else {
+            log.info("Сработала валидация по ID");
+            throw new ValidationException("Сработала валидация по ID");
+        }
     }
 
     public ArrayList<User> findCommonFriends(Long userId, Long otherId) { //вывод списка общих друзей
@@ -53,5 +69,25 @@ public class UserService {
             friendsDetailed.add(userStorage.findUserById(id));
         }
         return friendsDetailed;
+    }
+
+    public List<User> findAllUsers() {
+        return userStorage.findAllUsers();
+    }
+
+    public User findUserById(Long id) {
+        return userStorage.findUserById(id);
+    }
+
+    public User createUser(User user) {
+        return userStorage.createUser(user);
+    }
+
+    public User updateUser(User user) {
+        return userStorage.updateUser(user);
+    }
+
+    public void deleteUser(User user) {
+        userStorage.deleteUser(user);
     }
 }

@@ -39,4 +39,21 @@ public class FilmService {
         return filmStorage.getSortedFilms().stream().limit(count).collect(Collectors.toList());
     }
 
+    public List<Film> findAllFilms() {
+        return filmStorage.findAllFilms();
+    }
+
+    public Film findFilmById(Long id) {
+        return filmStorage.findFilmById(id);
+    }
+
+    public Film createFilm(Film film) {
+        return filmStorage.createFilm(film);
+    }
+
+    public Film updateFilm(Film film) {
+       return filmStorage.updateFilm(film);
+    }
+
+
 }

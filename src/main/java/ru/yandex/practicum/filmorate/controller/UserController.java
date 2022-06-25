@@ -20,18 +20,16 @@ import static ru.yandex.practicum.filmorate.model.User.validateUser;
 @RestController
 public class UserController {
 
-    private final UserStorage userStorage;
     private final UserService userService;
 
     @Autowired
-    public UserController(UserStorage userStorage, UserService userService) {
-        this.userStorage = userStorage;
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/users")
     public List<User> findAllUsers() {
-        return userStorage.findAllUsers();
+        return userService.findAllUsers();
     }
 
     @GetMapping("/users/{id}")
@@ -39,7 +37,7 @@ public class UserController {
         if (id < 0) {
             throw new NotFoundDataException();
         } else
-            return userStorage.findUserById(id);
+            return userService.findUserById(id);
     }
 
     @GetMapping("/users/{id}/friends")
@@ -56,13 +54,13 @@ public class UserController {
     @PostMapping(value = "/users")
     public User createUser(@Valid @RequestBody User user) throws ValidationException, NotFoundDataException {
         validateUser(user);
-        return userStorage.createUser(user);
+        return userService.createUser(user);
     }
 
     @PutMapping(value = "/users")
     public User updateUser(@Valid @RequestBody User user) throws ValidationException, NotFoundDataException {
         validateUser(user);
-        return userStorage.updateUser(user);
+        return userService.updateUser(user);
     }
 
     @PutMapping(value = "/users/{id}/friends/{friendId}")
@@ -77,7 +75,7 @@ public class UserController {
     @DeleteMapping(value = "/users")
     public void deleteUser(@Valid @RequestBody User user) throws ValidationException, NotFoundDataException {
         validateUser(user);
-        userStorage.deleteUser(user);
+        userService.deleteUser(user);
     }
 
     @DeleteMapping(value = "/users/{id}/friends/{friendId}")

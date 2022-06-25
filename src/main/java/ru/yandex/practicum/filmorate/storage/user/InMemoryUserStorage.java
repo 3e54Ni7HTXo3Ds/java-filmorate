@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.User;
 
+import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,9 +59,11 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public void deleteUser(User user) {
-        if (user != null) {
+        if (user != null && users.containsKey(user.getId())) {
             users.remove(user.getId());
             log.info("Удален пользователь: {} ", user);
+        } else {
+            throw new ValidationException("Сработала валидация: Такого пользователя не существует");
         }
     }
 
@@ -72,6 +75,6 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public User findUserById(Long id) {
-        return users.get(id);
+        return users.getOrDefault(id, null);
     }
 }
