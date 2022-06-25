@@ -1,12 +1,14 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.filmorate.exceptions.NotFoundDataException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static ru.yandex.practicum.filmorate.model.Film.validateFilm;
@@ -16,49 +18,60 @@ import static ru.yandex.practicum.filmorate.model.Film.validateFilm;
 @RestController
 public class FilmController {
 
-    private long filmId;
-    private final HashMap<Long, Film> films = new HashMap<>();
+    private final FilmService filmService;
 
-    private long getNextFilmId() {
-        filmId++;
-        return filmId;
+    @Autowired
+    public FilmController(FilmService filmService) {
+        this.filmService = filmService;
     }
 
     @GetMapping("/films")
     public List<Film> findAllFilms() {
-        log.info("Текущее количество фильмов: {} ", films.size());
-        return new ArrayList<>(films.values());
+        return filmService.findAllFilms();
+    }
+
+    @GetMapping("/films/{id}")
+    public Film findFilmById(@PathVariable Long id) throws NotFoundDataException {
+        if (id < 0) {
+            throw new NotFoundDataException();
+        } else
+            return filmService.findFilmById(id);
+    }
+
+    @GetMapping("/films/popular")
+    public List<Film> findPopular(@RequestParam(defaultValue = "10") Integer count) throws NotFoundDataException, ValidationException {
+        if (count > 0) {
+            return filmService.findPopular(count);
+        } else throw new ValidationException("Значение count должно быть положительным");
     }
 
     @PostMapping(value = "/films")
-    public Film createFilm(@RequestBody Film film) throws ValidationException {
+    public Film createFilm(@RequestBody Film film) throws ValidationException, NotFoundDataException {
         validateFilm(film);
-        filmId = getNextFilmId();
-        film.setId(filmId);
-        films.put(filmId, film);
-        log.info("Добавлен новый фильм: {} ", film);
-        return film;
+        return filmService.createFilm(film);
     }
 
     @PutMapping(value = "/films")
-    public Film updateFilm(@RequestBody Film film) throws ValidationException {
+    public Film updateFilm(@RequestBody Film film) throws ValidationException, NotFoundDataException {
         validateFilm(film);
-        long updateId = film.getId();
-
-        if (films.containsKey(updateId)) {
-            films.put(updateId, film);
-            log.info("Обновлен фильм: {} ", film);
-            return film;
-        } else {
-            filmId = getNextFilmId();
-            film.setId(filmId);
-            films.put(filmId, film);
-            log.info("Ранее такого фильма не было. Добавлен новый фильм: {} ", film);
-        }
-
-        log.error("Ошибка обновления фильма: {} ", film);
-        return null;
+        return filmService.updateFilm(film);
     }
 
+    @PutMapping(value = "/films/{id}/like/{userId}")
+    public void addLike(@PathVariable Long id, @PathVariable Long userId) throws NotFoundDataException {
+        if (id < 0 || userId < 0) {
+            throw new NotFoundDataException();
+        } else {
+            filmService.addLike(id, userId);
+        }
+    }
 
+    @DeleteMapping(value = "/films/{id}/like/{userId}")
+    public void deleteLike(@PathVariable Long id, @PathVariable Long userId) throws NotFoundDataException {
+        if (id < 0 || userId < 0) {
+            throw new NotFoundDataException();
+        } else {
+            filmService.deleteLike(id, userId);
+        }
+    }
 }

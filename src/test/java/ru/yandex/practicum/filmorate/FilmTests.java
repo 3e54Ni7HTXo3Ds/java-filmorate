@@ -46,7 +46,7 @@ public class FilmTests {
         assertNotNull(response, "Нет ответа");
         assertEquals(200, response.statusCode());
         assertEquals("{\"id\":1,\"name\":\"1\",\"description\":\"Film\",\"releaseDate\":\"2022-05-03\"," +
-                        "\"duration\":60}",
+                        "\"duration\":60,\"likes\":[]}",
                 response.body());
     }
 
@@ -62,7 +62,7 @@ public class FilmTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(400, response.statusCode());
 
     }
 
@@ -82,7 +82,7 @@ public class FilmTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(400, response.statusCode());
 
     }
     @Test
@@ -98,7 +98,7 @@ public class FilmTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(400, response.statusCode());
 
     }
 
@@ -115,7 +115,7 @@ public class FilmTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(400, response.statusCode());
 
     }
 
@@ -132,7 +132,7 @@ public class FilmTests {
                 .POST(body1).build();
         HttpResponse<String> response = client.send(request1, HttpResponse.BodyHandlers.ofString());
         assertNotNull(response, "Нет ответа");
-        assertEquals(500, response.statusCode());
+        assertEquals(404, response.statusCode());
 
     }
 }
